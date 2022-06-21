@@ -46,6 +46,7 @@ const SelectDropdown = (
     searchPlaceHolderColor /* text color for search input placeholder */,
     renderSearchInputLeftIcon /* function returns React component for search input icon */,
     renderSearchInputRightIcon /* function returns React component for search input icon */,
+    setParentSearchText /* function returns current search text to parent */,
   },
   ref,
 ) => {
@@ -76,7 +77,11 @@ const SelectDropdown = (
   const [selectedIndex, setSelectedIndex] = useState(-1); // index of selected item from dropdown
   const dropDownFlatlistRef = useRef(null); // ref to the drop down flatlist
   ///////////////////////////////////////////////////////
-  const [searchTxt, setSearchTxt] = useState('');
+  const [searchTxt, sst] = useState('');
+  function setSearchTxt(newText){
+    setParentSearchText(newText);
+    sst(newText);
+  }
   const keyboardHeight = useKeyboardHeight();
   const remainigHeightAvoidKeyboard = height - keyboardHeight;
   const safeDropdownViewUnderKeyboard = rowStyle && rowStyle.height ? rowStyle.height * 3 : 50 * 3;
